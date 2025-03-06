@@ -1,0 +1,100 @@
+<div class="row">
+  <div class="col-xs-6 col-md-3">
+    <div>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="orderedit">OrderID</label>
+          <input
+            class="form-control"
+            [(ngModel)]="selectedProduct.OrderID"
+            type="number"
+            disabled
+          />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="customeredit">CustomerID</label>
+          <ejs-textbox [(value)]="selectedProduct.CustomerID"></ejs-textbox>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="freightedit">Frieght</label>
+          <ejs-numerictextbox
+            [(value)]="selectedProduct.Freight"
+          ></ejs-numerictextbox>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="countryedit">ShipCountry</label>
+          <ejs-dropdownlist
+            #ddlelement
+            [(value)]="selectedProduct.ShipCountry"
+            [dataSource]="dropdown"
+          >
+            <ng-template #footerTemplate="" let-data="">
+              <button ej-button (click)="openDialog()">Add item</button>
+            </ng-template>
+          </ejs-dropdownlist>
+        </div>
+      </div>
+    </div>
+    <button ejs-button id="btn" (click)="save()">Save</button>
+  </div>
+  <div class="col-xs-6 col-md-9">
+    <ejs-grid
+      #grid
+      [dataSource]="orders"
+      height="315"
+      width="500px"
+      (rowSelected)="rowSelectHandler($event)"
+      [editSettings]="editSettings"
+    >
+      <e-columns>
+        <e-column
+          field="OrderID"
+          headerText="OrderID"
+          isPrimaryKey="true"
+          textAlign="Right"
+          width="120"
+        ></e-column>
+        <e-column
+          field="CustomerID"
+          headerText="CustomerID"
+          textAlign="Right"
+          width="120"
+        ></e-column>
+        <e-column
+          field="Freight"
+          headerText="Freight"
+          textAlign="Right"
+          format="C2"
+          width="120"
+        ></e-column>
+        <e-column
+          field="ShipCountry"
+          headerText="ShipCountry"
+          textAlign="Right"
+          width="120"
+        ></e-column>
+      </e-columns>
+    </ejs-grid>
+  </div>
+</div>
+<div id="dialog-container">
+  <ejs-dialog
+    id="dialog"
+    #ejDialog
+    target="#dialog-container"
+    [showCloseIcon]="true"
+    width="350px"
+    [visible]="false"
+  >
+    <ng-template #content>
+      <input #in placeholder="Input with warning" type="text" />
+      <button ej-button (click)="addItem(in.value)">Add item</button>
+    </ng-template>
+  </ejs-dialog>
+</div>

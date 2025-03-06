@@ -6,12 +6,6 @@ import { map } from 'rxjs';
 export class MySerService {
   http = inject(HttpClient);
 
-  // JSON.stringify({
-  //   title: 'foo',
-  //   body: 'bar',
-  //   userId: 1,
-  // }
-
   add(body: any) {
     return this.http.post('https://jsonplaceholder.typicode.com/posts', {
       body,
